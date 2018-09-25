@@ -173,7 +173,7 @@
   ), ((names, saves) -> # multi
     input = [ null, { SheetNames: names, Sheets: {} } ]
     for save, idx in saves
-      [harb, { Sheets: { Sheet1 } }] = J.read save
+      [harb, { Sheets: { Sheet1 } }] = J.read(save, {"type":"string"})
       input.0 ||= harb
       input.1.Sheets[names[idx]] = Sheet1
     rv = J.utils["to_#type"](input)

@@ -247,7 +247,9 @@
         for (i$ = 0, len$ = saves.length; i$ < len$; ++i$) {
           idx = i$;
           save = saves[i$];
-          ref$ = J.read(save), harb = ref$[0], Sheet1 = ref$[1].Sheets.Sheet1;
+          ref$ = J.read(save, {
+            "type": "string"
+          }), harb = ref$[0], Sheet1 = ref$[1].Sheets.Sheet1;
           input[0] || (input[0] = harb);
           input[1].Sheets[names[idx]] = Sheet1;
         }
