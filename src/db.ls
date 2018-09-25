@@ -57,7 +57,6 @@
     """
     | db.DB => return false
     | otherwise
-    console.log err
     console.log "==> Falling back to file system storage: #{ dataDir }/dump/"
     if EXPIRE
       console.log "==> The --expire <seconds> option requires a Redis server; stopping!"
@@ -74,7 +73,9 @@
         f <-! fs.readdir-sync "#dataDir/dump/" \
                 .filter (/^[^.]/.test _) \
                 .for-each
-        key = f.split(".")[0]
+        tokens = f.split(".")
+        tokens.pop()
+        key = tokens.join(".")
         type = key.split("-")[0]
         id = key.split("-")[1]
         db.DB.timestamps["timestamp-#id"] = 0

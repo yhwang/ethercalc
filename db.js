@@ -84,7 +84,6 @@
       default:
 
       }
-      console.log(err);
       console.log("==> Falling back to file system storage: " + dataDir + "/dump/");
       if (EXPIRE) {
         console.log("==> The --expire <seconds> option requires a Redis server; stopping!");
@@ -100,8 +99,10 @@
         };
         if (fs.existsSync(dataDir + "/dump/")) {
           fs.readdirSync(dataDir + "/dump/").filter(partialize$.apply(/^[^.]/, [/^[^.]/.test, [void 8], [0]])).forEach(function(f){
-            var key, type, id, k, ref$, v, this$ = this;
-            key = f.split(".")[0];
+            var tokens, key, type, id, k, ref$, v, this$ = this;
+            tokens = f.split(".");
+            tokens.pop();
+            key = tokens.join(".");
             type = key.split("-")[0];
             id = key.split("-")[1];
             db.DB.timestamps["timestamp-" + id] = 0;
